@@ -1,10 +1,11 @@
 # python3
 import sys
 import threading
-import numpy
 
 def compute_height(n, parents):
     tree = {}
+    for i in range(n):
+        tree[i] = []
     for i in range(n):
         parent = parents[i]
         if parent == -1:
@@ -31,24 +32,25 @@ def main():
         print(compute_height(name, parents))
 
     elif "F" in choice:
-        print("Enter the file name: ")
-        filename = input()
+        path = './test/'
+        filename = input("Enter the file name: ")
+        
         if "a" in filename:
             print("File names with letter a are not allowed")
             return
-        with open("./test/" + filename, mode = "r") as file:
+        try:
+          with open(path + filename, 'r', encoding='utf-8') as file:
             name = int(file.readline())
             parents = list(map(int, file.readline().split()))
             print(compute_height(name, parents))
+        except FileNotFoundError:
+            print("Error: File not found")
+            return
     else:
         print("Error")
-        exit()
 
-# In Python, the default limit on recursion depth is rather low,
-# so raise it here for this problem. Note that to take advantage
-# of bigger stack, we have to launch the computation in a new thread.
+    print(compute_height(name, parents))
 sys.setrecursionlimit(10**7) # max depth of recursion
 threading.stack_size(2**27) # new thread will get stack of such size
 threading.Thread(target=main).start()
 main()
-# print(numpy.array([1,2,3]))
