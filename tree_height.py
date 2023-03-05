@@ -20,13 +20,16 @@ def compute_height(n, parents):
             height = comp_height(ch)
             max_height = max(max_height, height)
         return max_height + 1
-        return comp_height + 1
+    
+    return comp_height(root)
 
 def main():
     choice = input()
     if choice == "F":
         name = int(input())
         parents = list(map(int, input().split()))
+        h = compute_height(n, parents)
+        print(h)
     elif choice == "I":
         print("Enter the file name: ")
         FileName = input()
@@ -36,6 +39,8 @@ def main():
         with open("./test/" + FileName, mode = "r") as file:
             name = int(file.readline())
             parents = list(map(int, file.readline().split()))
+            h = compute_height(n, parents)
+            print(h)
     else:
         print("Error")
         exit()
