@@ -27,19 +27,18 @@ def main():
     if "F" in choice:
         name = int(input())
         parents = list(map(int, input().split()))
-        h = compute_height(name, parents)
-        print(h)
+        print(compute_height(name, parents))
+
     elif "I" in choice:
         print("Enter the file name: ")
-        FileName = input()
-        if "a" in FileName:
+        filename = input()
+        if "a" in filename:
             print("File names with letter a are not allowed")
             return
-        with open("./test/" + FileName, mode = "r") as file:
+        with open("./test/" + filename, mode = "r") as file:
             name = int(file.readline())
             parents = list(map(int, file.readline().split()))
-            h = compute_height(name, parents)
-            print(h)
+            print(compute_height(name, parents))
     else:
         print("Error")
         exit()
