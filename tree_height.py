@@ -1,6 +1,7 @@
 # python3
 import sys
 import threading
+import numpy
 
 def compute_height(n, parents):
     tree = {}
@@ -24,12 +25,12 @@ def compute_height(n, parents):
 
 def main():
     choice = input()
-    if "F" in choice:
+    if "I" in choice:
         name = int(input())
         parents = list(map(int, input().split()))
         print(compute_height(name, parents))
 
-    elif "I" in choice:
+    elif "F" in choice:
         print("Enter the file name: ")
         filename = input()
         if "a" in filename:
