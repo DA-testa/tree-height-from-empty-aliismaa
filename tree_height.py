@@ -5,22 +5,25 @@ import threading
 def compute_height(n, parents):
     tree = [[] for i in range(n)]
     root = None
+
     for i in range(n):
         parent = parents[i]
         if parent == -1:
             root = i
         else:
             tree[parent].append(i)
+
     stack = [(root, 1)]
     max_height = 0
-    while edge:
-        node, height = edge.pop()
+    while stack:
+        node, height = stack.pop()
         if not tree[node]:
 
             max_height = max(max_height, height)
         else:
-            for ch in tree[node]:
-                edge.append((ch, height+1))
+            for child in tree[node]:
+                stack.append((child, height+1))
+
     return max_height
 
 def main():
