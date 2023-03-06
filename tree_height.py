@@ -3,21 +3,28 @@ import sys
 import threading
 
 def compute_height(n, parents):
-  tree = {}
-  for i in range(n):
-    if parents[i] == -1:
-      root = i
-    else:
-      tree[parents[i]].append(i)
-  def comp_height(node):
-    if not tree[node]:
-      return 1
-      max_height = 0
-      for ch in tree[node]:
-        height = comp_height(ch)
-        max_height = max(max_height, height)
-      return max_height + 1
-  return comp_height(root)
+    tree = [[] for i in range(n)]
+    root = None
+
+    for i in range(n):
+        parent = parents[i]
+        if parent == -1:
+            root = i
+        else:
+            tree[parent].append(i)
+
+    stack = [(root, 1)]
+    max_height = 0
+    while stack:
+        node, height = stack.pop()
+        if not tree[node]:
+
+            max_height = max(max_height, height)
+        else:
+            for child in tree[node]:
+                stack.append((child, height+1))
+
+    return max_height
 
 def main():
   choice = input("Choose the input method")
@@ -27,11 +34,11 @@ def main():
     print(compute_height(num,val))
   
   elif "F" in choice:
-    print("Enter the file name: ")
-    filename = input()
-    if "a" in filename:
-      print("File names with letter a are not allowed")
-      return
+      print("Enter the file name: ")
+      filename = input()
+      if "a" in filename:
+        print("File names with letter a are not allowed")
+        return
       with open("test/" + filename,'r') as file:
         num = int(file.readline())
         val = list(map(int,file.readline().split()))
